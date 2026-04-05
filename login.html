@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Study Planner</title>
+    <meta name="description" content="Secure login page for your modern Daily Study Planner. Organize tasks, track your Pomodoro timer, and boost your study streaks.">
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="login-body">
+    <div class="login-container">
+        <div class="login-box glass-panel">
+            <div class="login-header">
+                <i class="fas fa-graduation-cap logo-icon"></i>
+                <h2>Welcome Back</h2>
+                <p>Sign in to continue your learning journey.</p>
+            </div>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" placeholder="Enter your username" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                    </div>
+                </div>
+                <button type="submit" class="primary-btn login-btn">Sign In</button>
+            </form>
+            <div class="login-footer">
+                <p>Don't have an account? <span>It's created automatically!</span></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Basic login logic
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            if (username) {
+                localStorage.setItem('studyPlannerUser', username);
+                window.location.href = 'dashboard.html';
+            }
+        });
+
+        // Check if already logged in
+        if (localStorage.getItem('studyPlannerUser')) {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

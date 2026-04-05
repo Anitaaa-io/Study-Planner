@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Study Planner</title>
+    <!-- SEO Best Practices -->
+    <meta name="description"
+        content="Personalized dashboard for Daily Study Planner. Track progress, use Pomodoro timer, manage subjects, and study smarter.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar glass-panel">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>StudyHub</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="#"><i class="fas fa-home"></i><span>Dashboard</span></a></li>
+                <li><a href="#tasks-section"><i class="fas fa-tasks"></i><span>Tasks</span></a></li>
+                <li><a href="#pomodoro-section"><i class="fas fa-clock"></i><span>Timer</span></a></li>
+            </ul>
+            <div class="nav-bottom">
+                <button id="themeToggle" class="theme-btn">
+                    <i class="fas fa-sun"></i>
+                    <span>Light Mode</span>
+                </button>
+                <button id="logoutBtn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="welcome-text">
+                    <h1>Hello, <span id="userNameDisplay">Student</span> 👋</h1>
+                    <p>Let's make today a productive day.</p>
+                </div>
+                <div class="quote-card glass-panel">
+                    <i class="fas fa-quote-left"></i>
+                    <p id="quoteText">Loading inspiration...</p>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Left Column -->
+                <div class="grid-left">
+                    <!-- Progress & Streak -->
+                    <div class="stats-container">
+                        <div class="stat-card glass-panel">
+                            <h3>Daily Progress</h3>
+                            <div class="progress-circle" id="progressCircle">
+                                <span id="progressText">0%</span>
+                            </div>
+                            <p class="stat-subtitle" id="progressSubtitle">0/0 completed</p>
+                        </div>
+                        <div class="stat-card glass-panel">
+                            <h3>Study Streak</h3>
+                            <div class="streak-display">
+                                <i class="fas fa-fire streak-icon"></i>
+                                <span class="streak-count" id="streakCount">0 Days</span>
+                            </div>
+                            <p class="stat-subtitle">Keep it up!</p>
+                        </div>
+                    </div>
+
+                    <!-- Pomodoro Timer -->
+                    <div class="pomodoro-card glass-panel" id="pomodoro-section">
+                        <div class="pomodoro-header">
+                            <h3>Pomodoro Timer</h3>
+                            <div class="pomodoro-modes">
+                                <button class="mode-btn active" data-mode="work">Work</button>
+                                <button class="mode-btn" data-mode="break">Break</button>
+                            </div>
+                        </div>
+                        <div class="timer-display" id="timerDisplay">25:00</div>
+                        <div class="timer-controls">
+                            <button id="startTimer" class="timer-btn primary"><i class="fas fa-play"></i> Start</button>
+                            <button id="pauseTimer" class="timer-btn secondary" disabled><i class="fas fa-pause"></i>
+                                Pause</button>
+                            <button id="resetTimer" class="timer-btn secondary"><i class="fas fa-undo"></i>
+                                Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="grid-right" id="tasks-section">
+                    <!-- Task Management -->
+                    <div class="tasks-container glass-panel">
+                        <div class="tasks-header">
+                            <h3>Study Tasks</h3>
+                            <button id="addTaskBtn" class="add-task-btn"><i class="fas fa-plus"></i> New Task</button>
+                        </div>
+
+                        <!-- Add Task Modal / Form (hidden by default) -->
+                        <div id="taskFormContainer" class="task-form-container hidden">
+                            <form id="taskForm">
+                                <input type="hidden" id="taskId">
+                                <div class="form-group">
+                                    <label for="taskSubject">Subject / Topic</label>
+                                    <input type="text" id="taskSubject" required placeholder="E.g., Math Homework">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="taskDate">Date</label>
+                                        <input type="date" id="taskDate" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="taskTime">Time</label>
+                                        <input type="time" id="taskTime" required>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="save-btn" id="saveTaskBtn">Save Task</button>
+                                    <button type="button" class="cancel-btn" id="cancelTaskBtn">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Task Lists -->
+                        <div class="task-lists-wrapper">
+                            <div class="task-list-section">
+                                <h4>Today's Tasks</h4>
+                                <ul id="todayTaskList" class="task-list">
+                                    <!-- Tasks will be injected here via JS -->
+                                </ul>
+                            </div>
+
+                            <div class="task-list-section">
+                                <h4>Upcoming Tasks</h4>
+                                <ul id="upcomingTaskList" class="task-list">
+                                    <!-- Tasks will be injected here via JS -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Notification Permission Banner -->
+    <div id="notificationBanner" class="notification-banner glass-panel hidden">
+        <i class="fas fa-bell"></i>
+        <span>Enable notifications for smart study reminders.</span>
+        <button id="enableNotifications">Enable</button>
+        <button id="dismissNotifications" class="close-banner"><i class="fas fa-times"></i></button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
