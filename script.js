@@ -3,7 +3,7 @@ const currentUser = localStorage.getItem('studyPlannerUser');
 const isDashboard = window.location.pathname.includes('dashboard.html');
 
 if (!currentUser && isDashboard) {
-    window.location.href = 'login.html';
+    window.location.href = 'index.html';
 }
 
 if (currentUser && document.getElementById('userNameDisplay')) {
@@ -44,7 +44,7 @@ const logoutBtn = document.getElementById('logoutBtn');
 if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
         localStorage.removeItem('studyPlannerUser');
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
     });
 }
 
